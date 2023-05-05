@@ -37,6 +37,5 @@
 
 @_exported import struct NIOSSL.TLSConfiguration
 
-@_exported import WebSocketKit
 @_exported import MultipartKit
 #endif

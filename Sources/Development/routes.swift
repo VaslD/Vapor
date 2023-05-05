@@ -68,18 +68,6 @@ public func routes(_ app: Application) throws {
         return ["foo": "bar"]
     }.description("returns some test json")
     
-    app.webSocket("ws") { req, ws in
-        ws.onText { ws, text in
-            ws.send(text.reversed())
-            if text == "close" {
-                ws.close(promise: nil)
-            }
-        }
-
-        let ip = req.remoteAddress?.description ?? "<no ip>"
-        ws.send("Hello 👋 \(ip)")
-    }
-    
     app.on(.POST, "file", body: .stream) { req -> EventLoopFuture<String> in
         let promise = req.eventLoop.makePromise(of: String.self)
         req.body.drain { result in

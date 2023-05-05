@@ -49,9 +49,6 @@ let package = Package(
         
         // Swift collection algorithms
         .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.0.0"),
-
-        // WebSocket client library built on SwiftNIO
-        .package(url: "https://github.com/vapor/websocket-kit.git", from: "2.0.0"),
         
         // MultipartKit, Multipart encoding and decoding
         .package(url: "https://github.com/vapor/multipart-kit.git", from: "4.2.1"),
@@ -79,11 +76,9 @@ let package = Package(
             .product(name: "NIOHTTP1", package: "swift-nio"),
             .product(name: "NIOHTTP2", package: "swift-nio-http2"),
             .product(name: "NIOSSL", package: "swift-nio-ssl"),
-            .product(name: "NIOWebSocket", package: "swift-nio"),
             .product(name: "Crypto", package: "swift-crypto"),
             .product(name: "Algorithms", package: "swift-algorithms"),
             .product(name: "RoutingKit", package: "routing-kit"),
-            .product(name: "WebSocketKit", package: "websocket-kit"),
             .product(name: "MultipartKit", package: "multipart-kit"),
         ]),
 	
