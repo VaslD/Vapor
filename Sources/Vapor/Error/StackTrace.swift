@@ -1,8 +1,4 @@
 import Foundation
-#if os(Linux)
-import Backtrace
-import CBacktrace
-#endif
 
 extension Optional where Wrapped == StackTrace {
     public static func capture(skip: Int = 0) -> Self {
@@ -21,29 +17,7 @@ public struct StackTrace {
         return .init(rawFrames: .init(frames))
     }
 
-    #if os(Linux)
-    private static let state = backtrace_create_state(CommandLine.arguments[0], /* supportThreading: */ 1, nil, nil)
-    #endif
-
     static func captureRaw() -> [RawFrame] {
-        #if os(Linux)
-        final class Context {
-            var frames: [RawFrame] = []
-        }
-        let context = Context()
-        backtrace_full(self.state, /* skip: */ 1, { data, pc, filename, lineno, function in
-            let frame = RawFrame(
-                file: filename.flatMap { String(cString: $0) } ?? "unknown",
-                mangledFunction: function.flatMap { String(cString: $0) } ?? "unknown"
-            )
-            Unmanaged<Context>.fromOpaque(data!).takeUnretainedValue().frames.append(frame)
-            return 0
-        }, { _, cMessage, _ in
-            let message = cMessage.flatMap { String(cString: $0) } ?? "unknown"
-            fatalError("Failed to capture Linux stacktrace: \(message)")
-        }, Unmanaged.passUnretained(context).toOpaque())
-        return context.frames
-        #else
         return Thread.callStackSymbols.dropFirst(1).map { line in
             let parts = line.split(
                 separator: " ",
@@ -55,7 +29,6 @@ public struct StackTrace {
             let mangledFunction = functionPart.trimmingCharacters(in: .whitespaces)
             return .init(file: file, mangledFunction: mangledFunction)
         }
-        #endif
     }
 
     public struct Frame {

@@ -1,4 +1,3 @@
-import Backtrace
 import NIOConcurrencyHelpers
 import NIOCore
 import Logging
@@ -59,7 +58,6 @@ public final class Application {
         _ environment: Environment = .development,
         _ eventLoopGroupProvider: EventLoopGroupProvider = .createNew
     ) {
-        Backtrace.install()
         self.environment = environment
         self.eventLoopGroupProvider = eventLoopGroupProvider
         switch eventLoopGroupProvider {
