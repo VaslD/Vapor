@@ -43,9 +43,6 @@ let package = Package(
         
         // Swift logging API
         .package(url: "https://github.com/apple/swift-log.git", from: "1.0.0"),
-
-        // Swift metrics API
-        .package(url: "https://github.com/apple/swift-metrics.git", from: "2.0.0"),
         
         // Swift collection algorithms
         .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.0.0"),
@@ -66,7 +63,6 @@ let package = Package(
             .target(name: "CVaporURLParser"),
             .product(name: "ConsoleKit", package: "console-kit"),
             .product(name: "Logging", package: "swift-log"),
-            .product(name: "Metrics", package: "swift-metrics"),
             .product(name: "NIO", package: "swift-nio"),
             .product(name: "NIOConcurrencyHelpers", package: "swift-nio"),
             .product(name: "NIOCore", package: "swift-nio"),

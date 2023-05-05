@@ -41,8 +41,7 @@ extension Application {
         public var `default`: Vapor.Responder {
             DefaultResponder(
                 routes: self.application.routes,
-                middleware: self.application.middleware.resolve(),
-                reportMetrics: self.application.http.server.configuration.reportMetrics
+                middleware: self.application.middleware.resolve()
             )
         }
 
